@@ -15,6 +15,18 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('produits')" :active="request()->routeIs('produits')">
+                        {{ __('Les produits') }}
+                    </x-nav-link>
+
+
+                    <x-nav-link :href="route('categories')" :active="request()->routeIs('categories')">
+                        {{ __('Les categories') }}
+                    </x-nav-link>
+
+                    
+                    
                 </div>
             </div>
 
@@ -69,6 +81,14 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('produits')" :active="request()->routeIs('produits')">
+                        {{ __('Les produits') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('categories')" :active="request()->routeIs('categories')">
+                        {{ __('Les categories') }}
             </x-responsive-nav-link>
         </div>
 

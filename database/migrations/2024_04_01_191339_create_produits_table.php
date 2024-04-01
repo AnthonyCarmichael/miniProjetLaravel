@@ -19,7 +19,12 @@ return new class extends Migration
             $table->string('produit');
             $table->string('description');
             $table->decimal('prix', 10, 2);
-            });
+        });
+
+        Schema::table('produits', function (Blueprint $table) {
+            $table->foreign('id_categorie')->references('id_categorie')->on('categories');
+        });
+
     }
 
     /**
