@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Categorie;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,10 @@ Route::controller(ProduitController::class)->group(function() {
 
 Route::controller(CategorieController::class)->group(function() {
     Route::get('/categories', 'index')->name('categories');
+});
+
+Route::controller(CommentaireController::class)->group(function() {
+    Route::get('/commentaire', 'create')->name('commentaire');
 });
 
 require __DIR__.'/auth.php';

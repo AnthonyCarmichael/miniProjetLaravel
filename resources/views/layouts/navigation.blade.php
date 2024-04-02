@@ -25,6 +25,9 @@
                         {{ __('Les categories') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('commentaire')" :active="request()->routeIs('commentaire')">
+                        {{ __('Question/Commentaire') }}
+                    </x-nav-link>
                     
                     
                 </div>
@@ -89,6 +92,10 @@
 
             <x-responsive-nav-link :href="route('categories')" :active="request()->routeIs('categories')">
                         {{ __('Les categories') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('commentaire')" :active="request()->routeIs('commentaire')">
+                        {{ __('Question/Commentaire') }}
             </x-responsive-nav-link>
         </div>
 

@@ -1,0 +1,15 @@
+#formCommentaire label, #formCommentaire input:not(input[type="radio"]) {
+   width: 100%;
+}
+
+#formCommentaire {
+    display: grid;
+    grid-template-columns: 35% 60%;
+    gap: 10px;
+    padding: 20px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
