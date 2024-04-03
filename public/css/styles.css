@@ -1,4 +1,4 @@
-#formCommentaire label, #formCommentaire input:not(input[type="radio"]) {
+#formCommentaire label, #formCommentaire input:not(input[type="radio"],#formCommentaire textarea) {
    width: 100%;
 }
 
@@ -13,3 +13,7 @@
     grid-column: span 2;
 }
 
+
+#formCommentaire textarea {
+    resize: none;
+}

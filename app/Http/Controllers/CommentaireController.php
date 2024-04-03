@@ -6,6 +6,9 @@ use App\Models\Commentaire;
 use Illuminate\Http\Request;
 
 use Illuminate\View\View;
+use App\Models\Produit;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CommentaireController extends Controller
 {
@@ -22,7 +25,11 @@ class CommentaireController extends Controller
      */
     public function create(): View
     {
-        return view('commentaire/formulaireCommentaire');
+        return view('commentaire/formulaireCommentaire',[
+            'produits' => Produit::All(),
+            'user' => Auth::user()
+            
+        ]);
 
     }
 
@@ -31,7 +38,32 @@ class CommentaireController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       // dd($request->input());
+        $validation = Validator::make($request->all(), [
+            // Vous pouvez combiner plusieurs règles de validation à condition de les séparer par des "|". Les noms
+            // clés de ce tableau associatif doivent correspondent aux termes inscrits dans les attributs "name" des
+            // balises <input />, <select> et <textearea>.
+            'nom' => 'required',
+            'telephone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'sujet' => 'required',
+            'produit' => 'required',
+            'choix' => 'required',
+            'message' => 'required|max:1000',
+            ], [
+            // Vous pouvez écrire un message d’erreur distinct par règle de validation fournie plus haut.
+            'nom.required' => 'Veuillez entrer un nom.',
+            'telephone.required' => 'Veuillez entrer un numéro de téléphone.',
+            'telephone.regex' => 'Le numéro de téléphone ne respecte pas le format attendu.',
+            'telephone.min' => 'Le numéro de téléphone doit comporter au moins 10 caractères.',
+            'sujet.required' => 'Veuillez spécifier un sujet pour votre question ou commentaire.',
+            'produit.required' => 'Veuillez sélectionner le produit en lien avec votre question ou commentaire.',
+            'choix.required' => 'Veuillez choisir entre une question ou un commentaire.',
+            'message.required' => 'Veuillez inscrire une question ou un commentaire.',
+            'message.max' => 'Votre question ou commentaire ne peut pas dépasser 1000 caractères.'
+            ]);
+        if ($validation->fails())
+            return back()->withErrors($validation->errors())->withInput();
+
     }
 
     /**
