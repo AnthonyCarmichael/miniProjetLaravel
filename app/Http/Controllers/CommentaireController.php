@@ -27,8 +27,6 @@ class CommentaireController extends Controller
     {
         return view('commentaire/formulaireCommentaire',[
             'produits' => Produit::All(),
-            'user' => Auth::user()
-            
         ]);
 
     }
