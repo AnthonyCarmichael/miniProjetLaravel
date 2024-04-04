@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 use Illuminate\View\View;
 use App\Models\Produit;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ConfirmationCommentaire;
+
 
 class CommentaireController extends Controller
 {
@@ -78,7 +83,14 @@ class CommentaireController extends Controller
             // On enregistre les informations dans la base de données à partir de l’instance
             // du modèle (de la classe) "Commentaire" créée précédemment.
             $commentaire->save();
-            return redirect()->route('confirmationCommentaire');
+
+            Mail::to(Auth::user()->email)->send(new ConfirmationCommentaire($commentaire));
+            return view('commentaire/confirmationCommentaire', [
+                'commentaire' => [
+                    'choix' => $contenuFormulaire['choix'],
+                    'telephone' => $contenuFormulaire['telephone']
+                ]
+            ]);
         }
     }
 
