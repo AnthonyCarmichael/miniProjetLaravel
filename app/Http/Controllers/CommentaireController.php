@@ -61,15 +61,35 @@ class CommentaireController extends Controller
             ]);
         if ($validation->fails())
             return back()->withErrors($validation->errors())->withInput();
+        else {
 
+            // On crée une nouvelle instance du modèle (de la classe) "Commentaire"
+            $commentaire = new Commentaire;
+            $contenuFormulaire = $validation->validated();
+            $commentaire->id_utilisateur = Auth::id();
+            $commentaire->id_produit = $contenuFormulaire['produit'];
+            $commentaire->telephone = $contenuFormulaire['telephone'];
+            $commentaire->sujet = $contenuFormulaire['sujet'];
+            // La colonne "question" de la table "commentaires" en BD étant de type booléen, il
+            // faut inscrire la valeur "true" si le demandeur a cliqué sur l’option "question".
+            // Autrement, la valeur "false" sera inscrite pour cette colonne.
+            $commentaire->question = ($contenuFormulaire['choix'] === 'question');
+            $commentaire->message = $contenuFormulaire['message'];
+            // On enregistre les informations dans la base de données à partir de l’instance
+            // du modèle (de la classe) "Commentaire" créée précédemment.
+            $commentaire->save();
+            return redirect()->route('confirmationCommentaire');
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Commentaire $commentaire)
+    public function show(Commentaire $commentaire) : View
     {
-        //
+        return view('commentaire/confirmationCommentaire', [
+            'commentaire' => $commentaire
+        ]);
     }
 
     /**

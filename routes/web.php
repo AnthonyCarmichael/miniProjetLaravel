@@ -34,7 +34,8 @@ Route::controller(CategorieController::class)->group(function() {
 Route::controller(CommentaireController::class)->group(function() {
     Route::get('/commentaire', 'create')->name('commentaire');
     Route::post('/insertionCommentaire', 'store')->name('insertionCommentaire');
-    
+    Route::get('/confirmationCommentaire', 'show')->name('confirmationCommentaire');
+   
 });
 
 require __DIR__.'/auth.php';
