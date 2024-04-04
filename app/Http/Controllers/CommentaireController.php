@@ -83,7 +83,8 @@ class CommentaireController extends Controller
             // On enregistre les informations dans la base de données à partir de l’instance
             // du modèle (de la classe) "Commentaire" créée précédemment.
             $commentaire->save();
-
+            
+            $commentaire->question = $contenuFormulaire['choix'];
             Mail::to(Auth::user()->email)->send(new ConfirmationCommentaire($commentaire));
             return view('commentaire/confirmationCommentaire', [
                 'commentaire' => [
