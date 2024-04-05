@@ -47,16 +47,6 @@
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-auto">Envoyer</button>
                         </div>
                     </form>
-                    @if ($errors->any())
-                        <div class="form_errors_div text-red-500 w-4/5 m-auto">
-                            <p class="font-semibold">Veuillez corriger l'erreur ou les erreurs suivante(s) :</p>
-                            <ul class="ml-5">
-                                @foreach ($errors->all() as $error)
-                                    <li class="list-disc">{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                 </div>
                 
             </div>
