@@ -1,8 +1,8 @@
-#formCommentaire label, #formCommentaire input:not(input[type="radio"],#formCommentaire textarea) {
+#formA label, #formA input:not(input[type="radio"],#formA textarea) {
    width: 100%;
 }
 
-#formCommentaire {
+#formA {
     display: grid;
     grid-template-columns: 35% 60%;
     gap: 10px;
@@ -14,6 +14,17 @@
 }
 
 
-#formCommentaire textarea {
+#formA textarea {
     resize: none;
+}
+
+#formProduit label, input{
+    width: 100%;
+}
+
+#formProduit {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    gap: 10px;
+    padding: 20px;
 }

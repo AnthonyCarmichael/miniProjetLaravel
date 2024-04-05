@@ -25,6 +25,10 @@ Route::controller(ProduitController::class)->group(function() {
     Route::get('/produits', 'index')->name('produits');
     Route::get('/produit/{id}', 'show')->name('produit');
     Route::get('/produits/categorie/{id}', 'show')->name('produitsCategorie');
+    Route::get('/modification/produit', 'edit')->name('modificationProduit');
+    Route::post('/suppression/produit', 'destroy')->name('suppressionProduit');
+    Route::post('/enregistrement/produit/{id}', 'update')->name('enregistrementProduit');
+
 });
 
 Route::controller(CategorieController::class)->group(function() {
@@ -37,5 +41,7 @@ Route::controller(CommentaireController::class)->group(function() {
     Route::get('/confirmationCommentaire', 'show')->name('confirmationCommentaire');
    
 });
+
+
 
 require __DIR__.'/auth.php';

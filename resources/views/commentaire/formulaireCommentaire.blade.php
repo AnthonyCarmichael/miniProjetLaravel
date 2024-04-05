@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 space-y-4">
-                    <form method="post" action="{{ route('insertionCommentaire') }}" class="border-solid border-2 border-gray-500 rounded-xl w-4/5 m-auto" id="formCommentaire">
+                    <form method="post" action="{{ route('insertionCommentaire') }}" class="border-solid border-2 border-gray-500 rounded-xl w-4/5 m-auto" id="formA">
                         @csrf 
                     
                         <label for="nom">Demandeur:</label>
@@ -44,7 +44,7 @@
                         
                 
                         <div class="full-width flex">
-                            <button type="submit" class="shadow-cyan-500/50 shadow shadow-blue-500/40 hover:shadow-indigo-500/40 m-auto p-1">Envoyer</button>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-auto">Envoyer</button>
                         </div>
                     </form>
                     @if ($errors->any())
