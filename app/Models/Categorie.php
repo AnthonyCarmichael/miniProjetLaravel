@@ -14,6 +14,18 @@ class Categorie extends Model
     protected $primaryKey = 'id_categorie';
     public $timestamps = false;
 
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'categorie',
+        'description'
+    ];
+
+
     public function produits(): HasMany
     {
         // Il faut préciser la classe (le modèle) avec laquelle la relation s’établit.

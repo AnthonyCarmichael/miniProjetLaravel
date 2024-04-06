@@ -6,8 +6,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 use App\Models\Produit;
+use App\Http\Resources\ProduitResource;
 
 class ProduitController extends Controller
 {
@@ -35,13 +37,48 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->routeIs('insertionProduitApi')) {
+            $validation = Validator::make($request->all(), [
+                'id_categorie' => 'required|regex:/^[1-9]\d*$/',
+                'produit' => 'required',
+                'description' => 'required|max:250',
+                'prix' => 'required|regex:/^\d+\.\d\d$/'], 
+                [
+                'id_categorie.required' => 'Veuillez entrer l\'identifiant de la catégorie.',
+                'id_categorie.regex' => 'L\'identifiant de la catégorie doit être un nombre supérieur à 0.',
+                'produit.required' => 'Veuillez entrer un nom pour le produit.',
+                'description.required' => 'Veuillez inscrire une description pour le produit.',
+                'description.max' => 'Votre description de produit ne peut pas dépasser 250 caractères.',
+                'prix.required' => 'Veuillez inscrire un prix pour le produit.',
+                'prix.regex' => 'Le prix doit être un montant valide avec un point comme délimitateur.'
+            ]);
+            if ($validation->fails()) {
+                // On répond à la requête de Postman en plaçant toutes les erreurs qui ont pu survenir dans
+                // un conteneur JSON avec un code HTTP 400.
+                return response()->json(['ERREUR' => $validation->errors()], 400);
+            } 
+            $contenuDecode = $validation->validated();
+            // Rendu ici, les données ont été validées et décodées dans le tableau associatif $contenuDecode.
+            // Il faut alors procéder à l’insertion du produit en BD.
+            try {
+                Produit::create([
+                'id_categorie' => $contenuDecode['id_categorie'],
+                'produit' => $contenuDecode['produit'],
+                'description' => $contenuDecode['description'],
+                'prix' => $contenuDecode['prix']
+                ]);
+                return response()->json(['SUCCÈS' => 'Le produit a bien été ajouté.'], 200);
+            } catch (QueryException $erreur) {
+                report($erreur);
+                return response()->json(['ERREUR' => 'Le produit n\'a pas été ajouté.'], 500);
+            }
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, int $id): View
+    public function show(Request $request, int $id)
     {
 
         if ($request->routeIs('produit')) {
@@ -61,6 +98,12 @@ class ProduitController extends Controller
             return view('produit/produitsCategorie', [
                 'produits' => $produits
             ]);
+        }
+        else if ($request->routeIs('produitApi')) {
+            $produit = Produit::find($id);
+            if (empty($produit))
+                return response()->json(['ERREUR' => 'Le produit demandé est introuvable.'], 400);
+            return new ProduitResource($produit);
         }
         return abort(404);
     }
