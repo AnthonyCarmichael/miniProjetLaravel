@@ -15,8 +15,6 @@ return new class extends Migration
             $table->engine = 'InnoDB'; // Pour pouvoir utiliser les clés étrangères et les transactions
             $table->bigIncrements('id_categorie'); // Clé primaire automatiquement créée avec "bigIncrements()".
             // "usigned()" nécessaire pour éventuellement pouvoir définir une clé étrangère sur cette colonne.
-            $table->string('categorie');
-            $table->string('description');
         });
     }
 
