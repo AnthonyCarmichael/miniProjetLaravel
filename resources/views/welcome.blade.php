@@ -24,7 +24,7 @@
                                 @auth
                                     <div class="fixed top-10 right-10">
                                         <a
-                                            href="{{ url('/dashboard') }}"
+                                            href="{{ route('dashboard') }}"
                                             class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                         >
                                             Dashboard
@@ -68,6 +68,17 @@
                                         @endif
                                     </div>
 
+                                    <div class="fixed top-10 right-60">
+
+                                        @foreach(config('app.available_locales') as $locale)
+                                            <a href="{{route(Route::currentRouteName(),
+                                                array_merge(\Route::current()->parameters(),
+                                                ['locale' => $locale]))
+                                                }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                                {{ strtoupper($locale) }}
+                                            </a>
+                                        @endforeach
+                                    </div>
                                 @endauth
                             </nav>
                         @endif
