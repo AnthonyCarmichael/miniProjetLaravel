@@ -33,5 +33,15 @@ class Produit extends Model
         return $this->belongsTo(Categorie::class, 'id_categorie');
     }
 
+    public function getProduitsLangue()
+    {
+        return $this->hasMany(Produits_Langues::class, 'id_produit');
+    }
+
+    public function traduction()
+    {
+        $langue = Langue::where('code', app()->getLocale())->first();
+        return $this->getProduitsLangue->where('id_langue', $langue->id_langue)->first();
+    }
 
 }

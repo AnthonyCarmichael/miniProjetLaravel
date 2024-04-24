@@ -31,4 +31,15 @@ class Categorie extends Model
         // Il faut préciser la classe (le modèle) avec laquelle la relation s’établit.
         return $this->HasMany(Produit::class, 'id_produit');
     }
+
+    public function getCategoriesLangue()
+    {
+        return $this->hasMany(CategoriesLangues::class, 'id_categorie');
+    }
+
+    public function traduction()
+    {
+        $langue = Langue::where('code', app()->getLocale())->first();
+        return $this->getCategoriesLangue->where('id_langue', $langue->id_langue)->first();
+    }
 }
