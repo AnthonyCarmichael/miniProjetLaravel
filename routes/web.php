@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Middleware\EnsureUserIsAdmin;
+use App\Http\Controllers\PanierController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,6 +61,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/redaction/commentaire', 'create')->name('redactionCommentaire');
         Route::post('/insertion/commentaire', 'store')->name('insertionCommentaire');
     });
+});
+
+Route::controller(PanierController::class)->group(function(){
+    Route::post('/panier', 'store')->name('ajoutItemPanier');
 });
 
 

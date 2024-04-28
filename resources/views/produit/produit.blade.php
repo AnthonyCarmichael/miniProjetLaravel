@@ -16,6 +16,13 @@
                     {{ $produit->description }}</p>
                     <p class="font-normal"><span class="font-semibold">Prix :</span>
                     {{ $produit->prix }} $</p>
+                    <form method="post" action="{{ route('ajoutItemPanier') }}">
+                        @csrf
+                        <button type="submit" name="id_produit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded self-end"
+                            value="{{ $produit->id_produit }}">
+                            Ajouter au panier
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
